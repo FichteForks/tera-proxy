@@ -318,7 +318,7 @@ function startProxy() {
 }
 
 populateModulesList();
-autoUpdate(moduleBase, modules, UPDATE_LOG, UPDATE_LIMIT).then((updateResult) => {
+autoUpdate(moduleBase, modules, UPDATE_LOG, UPDATE_LIMIT, REGION.toLowerCase().split('-')[0]).then((updateResult) => {
   if(!updateResult["tera-data"])
     console.log("WARNING: There were errors updating tera-data. This might result in further errors.");
 

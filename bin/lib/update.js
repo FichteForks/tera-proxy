@@ -58,7 +58,7 @@ async function autoUpdateFile(file, filepath, url, drmKey, expectedHash = null) 
   }
 }
 
-async function autoUpdateModule(name, root, updateData, updatelog, updatelimit, serverIndex = 0) {
+async function autoUpdateModule(name, root, updateData, updatelog, updatelimit, region, serverIndex = 0) {
   try {
     const manifest_url = updateData["servers"][serverIndex] + 'manifest.json';
     if(updatelog) {
@@ -75,6 +75,19 @@ async function autoUpdateModule(name, root, updateData, updatelog, updatelimit, 
       let filepath = path.join(root, file);
       let filedata = manifest["files"][file];
 
+      // Check if the file is required for the active game region
+      let matchesRegion = true;
+      if(typeof filedata === 'object' && filedata["region"]) {
+        if(typeof filedata["region"] == 'object')
+          matchesRegion = filedata["region"].includes(region);
+        else
+          matchesRegion = filedata["region"] === region;
+      }
+
+      if (!matchesRegion)
+        continue;
+
+      // Check if the file needs to be updated
       let needsUpdate = !fs.existsSync(filepath);
       let expectedHash = null;
       if(!needsUpdate) {
@@ -87,6 +100,7 @@ async function autoUpdateModule(name, root, updateData, updatelog, updatelimit, 
         }
       }
 
+      // Update file if required
       if(needsUpdate) {
         const file_url = updateData["servers"][serverIndex] + file;
         if(updatelog)
@@ -122,7 +136,7 @@ async function autoUpdateModule(name, root, updateData, updatelog, updatelimit, 
     return {"defs": manifest["defs"], "results": updatelimit ? promises : (await Promise.all(promises))};
   } catch(e) {
     if(serverIndex + 1 < updateData["servers"].length)
-        return autoUpdateModule(name, root, updateData, updatelog, updatelimit, serverIndex + 1);
+        return autoUpdateModule(name, root, updateData, updatelog, updatelimit, region, serverIndex + 1);
     else
         return Promise.reject(e);
   }
@@ -177,7 +191,7 @@ async function autoUpdateMaps(updatelog, updatelimit) {
   for(let region in mappings) {
     let mappingData = mappings[region];
     protocol_data[mappingData['version']] = {
-        'region': region.toLowerCase().substr(0, 2),
+        'region': region.toLowerCase().split('-')[0],
         'major_patch': mappingData['major_patch'],
         'minor_patch': mappingData['minor_patch'],
     }
@@ -213,7 +227,7 @@ async function autoUpdateMaps(updatelog, updatelimit) {
   return [protocol_data, promises];
 }
 
-async function autoUpdate(moduleBase, modules, updatelog, updatelimit) {
+async function autoUpdate(moduleBase, modules, updatelog, updatelimit, region) {
   console.log("[update] Auto-update started!");
   let requiredDefs = new Set(["C_CHECK_VERSION.1.def"]);
 
@@ -239,7 +253,7 @@ async function autoUpdate(moduleBase, modules, updatelog, updatelimit) {
               });
             } else {
               try {
-                const moduleConfig = await autoUpdateModule(module, root, updateData, updatelog, updatelimit);
+                const moduleConfig = await autoUpdateModule(module, root, updateData, updatelog, updatelimit, region);
 
                 let failedFiles = [];
                 for(let result of moduleConfig["results"]) {
