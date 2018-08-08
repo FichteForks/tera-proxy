@@ -84,6 +84,7 @@ module.exports = {
     listenHostname: "127.0.0.19"
   },
   "JP-CLASSIC": {
+    classic: true,
     url: "https://tera.pmang.jp/classic_game_launcher/server_list.xml?usn=0",
     hostname: "tera.pmang.jp",
     altHostnames: ["tera-hangame.pmang.jp"],
