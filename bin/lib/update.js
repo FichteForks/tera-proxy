@@ -142,16 +142,8 @@ async function autoUpdateModule(name, root, updateData, updatelog, updatelimit, 
   }
 }
 
-async function autoUpdateDef(def, filepath, filepath_pc, filepath_con) {
-  // First try platform-agnostic version
-  let res = await autoUpdateFile(def, filepath, TeraDataAutoUpdateServer + "protocol/" + def);
-  if (res[1])
-    return res;
-
-  // Then try platform-specific versions
-  let res_pc = await autoUpdateFile(def, filepath_pc, TeraDataAutoUpdateServer + "protocol/" + def.replace('.def', '.pc.def'));
-  let res_con = await autoUpdateFile(def, filepath_con, TeraDataAutoUpdateServer + "protocol/" + def.replace('.def', '.con.def'));
-  return [def, res_pc[1] && res_con[1], !res_pc[1] ? res_pc[2] : (!res_con[1] ? res_con[2] : "")];
+async function autoUpdateDef(def, filepath) {
+  return await autoUpdateFile(def, filepath, TeraDataAutoUpdateServer + "protocol/" + def);
 }
 
 async function autoUpdateDefs(requiredDefs, updatelog, updatelimit) {
@@ -160,22 +152,20 @@ async function autoUpdateDefs(requiredDefs, updatelog, updatelimit) {
   if(updatelog)
     console.log("[update] Updating defs");
 
-  for(let def of requiredDefs) {
+  const defs = await request({url: TeraDataAutoUpdateServer + 'defs.json', json: true});
+  for(let def of defs) {
     let filepath = path.join(__dirname, '..', '..', 'node_modules', 'tera-data', 'protocol', def);
     if(!fs.existsSync(filepath)) {
-      let filepath_pc = filepath.replace('.def', '.pc.def');
-      let filepath_con = filepath.replace('.def', '.con.def');
+      if(updatelog)
+        console.log("[update] - " + def);
 
-      if(!fs.existsSync(filepath_pc) || !fs.existsSync(filepath_con))
-      {
-        if(updatelog)
-          console.log("[update] - " + def);
-
-        let promise = autoUpdateDef(def, filepath, filepath_pc, filepath_con);
-        promises.push(updatelimit ? (await promise) : promise);
-      }
+      let promise = autoUpdateDef(def, filepath);
+      promises.push(updatelimit ? (await promise) : promise);
     }
   }
+
+  // TODO: check if all requiredDefs are in def list
+  // TODO: def file hashes, delete outdated defs, ...
 
   return promises;
 }
