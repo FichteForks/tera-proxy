@@ -236,7 +236,7 @@ async function autoUpdate(moduleBase, modules, updatelog, updatelimit, region) {
           try {
             updateData = JSON.parse(updateData);
             if(updateData["disableAutoUpdate"]) {
-              console.warn("WARNING: Auto-update disabled for module %s!", module);
+              console.warn("[update] WARNING: Auto-update disabled for module %s!", module);
               successModules.push({
                 "name": module,
                 "options": updateData["options"] || {},
@@ -282,13 +282,13 @@ async function autoUpdate(moduleBase, modules, updatelog, updatelimit, region) {
                   });
                 }
               } catch(e) {
-                console.error("ERROR: Unable to auto-update module %s:\n%s", module, e);
+                console.error("[update] ERROR: Unable to auto-update module %s:\n%s", module, e);
                 if(updateData["supportUrl"]) {
-                  console.error("Please go to %s and follow the given instructions or ask for help.", updateData["supportUrl"]);
+                  console.error("[update] Please go to %s and follow the given instructions or ask for help.", updateData["supportUrl"]);
                   if(updateData["supportUrl"] !== DiscordURL)
-                    console.error("Alternatively, join %s and ask in the #help channel.", DiscordURL);
+                    console.error("[update] Alternatively, join %s and ask in the #help channel.", DiscordURL);
                 } else {
-                  console.error("Please contact the module author or join %s and ask in the #help channel.", DiscordURL);
+                  console.error("[update] Please contact the module author or join %s and ask in the #help channel.", DiscordURL);
                 }
 
                 failedModules.push({
@@ -298,7 +298,7 @@ async function autoUpdate(moduleBase, modules, updatelog, updatelimit, region) {
               }
             }
           } catch(e) {
-            console.error("ERROR: Failed to parse auto-update configuration for module %s:\n%s", module, e);
+            console.error("[update] ERROR: Failed to parse auto-update configuration for module %s:\n%s", module, e);
             failedModules.push({
               "name": module,
               "options": {},
@@ -332,7 +332,7 @@ async function autoUpdate(moduleBase, modules, updatelog, updatelimit, region) {
   }
 
   if(failedFiles.length > 0)
-    console.error("ERROR: Unable to update the following def/map files. Please join %s and report this error in the #help channel!\n - %s", DiscordURL, failedFiles.join('\n - '));
+    console.error("[update] ERROR: Unable to update the following def/map files. Please join %s and report this error in the #help channel!\n - %s", DiscordURL, failedFiles.join('\n - '));
 
   console.log("[update] Auto-update complete!");
   return {"tera-data": (failedFiles.length == 0), "protocol_data": mapResults[0], "updated": successModules, "legacy": legacyModules, "failed": failedModules};

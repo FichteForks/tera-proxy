@@ -11,6 +11,7 @@ const {region: REGION, updatelog: UPDATE_LOG, updatelimit: UPDATE_LIMIT, dnsserv
 
 const REGIONS = require("./regions");
 const currentRegion = REGIONS[REGION];
+const REGION_SHORT = REGION.toLowerCase().split('-')[0];
 const isConsole = currentRegion["console"];
 const { customServers, listenHostname, hostname } = currentRegion;
 const altHostnames = currentRegion.altHostnames || [];
@@ -313,13 +314,13 @@ function startProxy() {
     mod.options.rootFolder = path.join(moduleBase, mod.name);
     if (mod.options.loadOn === "startup") {
       console.log(`[proxy] Initializing module ${mod.name}`);
-      require(mod.name);
+      require(mod.name)(REGION_SHORT);
     }
   }
 }
 
 populateModulesList();
-autoUpdate(moduleBase, modules, UPDATE_LOG, UPDATE_LIMIT, REGION.toLowerCase().split('-')[0]).then((updateResult) => {
+autoUpdate(moduleBase, modules, UPDATE_LOG, UPDATE_LIMIT, REGION_SHORT).then((updateResult) => {
   if(!updateResult["tera-data"])
     console.log("WARNING: There were errors updating tera-data. This might result in further errors.");
 
