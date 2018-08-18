@@ -60,11 +60,15 @@ async function autoUpdateFile(file, filepath, url, drmKey, expectedHash = null) 
 
 async function autoUpdateModule(name, root, updateData, updatelog, updatelimit, region, serverIndex = 0) {
   try {
-    const manifest_url = updateData["servers"][serverIndex] + 'manifest.json';
-    if(updatelog) {
+    // If only one file (module.json) exists, it's a fresh install
+    if (walkdir(root, true, false).length === 1)
+      console.log("[update] Installing module " + name);
+    else if (updatelog)
       console.log("[update] Updating module " + name);
+
+    const manifest_url = updateData["servers"][serverIndex] + 'manifest.json';
+    if(updatelog)
       console.log("[update] - Retrieving update manifest (Server " + serverIndex + ")");
-    }
 
     const manifest = await request({url: manifest_url, qs: {"drmkey": updateData["drmKey"]}, json: true});
     if(typeof manifest !== 'object')
