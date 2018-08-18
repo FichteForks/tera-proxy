@@ -1,5 +1,5 @@
 const DiscordURL = "https://discord.gg/maqBmJV";
-const {region: REGION, updatelog: UPDATE_LOG, updatelimit: UPDATE_LIMIT, dnsservers: DNS_SERVERS} = (() => {
+const {region: REGION, updatelog: UPDATE_LOG, dnsservers: DNS_SERVERS} = (() => {
     try {
         return require("../config.json");
     } catch(_) {
@@ -320,7 +320,7 @@ function startProxy() {
 }
 
 populateModulesList();
-autoUpdate(moduleBase, modules, UPDATE_LOG, UPDATE_LIMIT, REGION_SHORT).then((updateResult) => {
+autoUpdate(moduleBase, modules, UPDATE_LOG, true, REGION_SHORT).then((updateResult) => {
   if(!updateResult["tera-data"])
     console.log("WARNING: There were errors updating tera-data. This might result in further errors.");
 

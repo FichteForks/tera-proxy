@@ -142,8 +142,8 @@ async function autoUpdateModule(name, root, updateData, updatelog, updatelimit, 
   }
 }
 
-async function autoUpdateDef(def, filepath) {
-  return await autoUpdateFile(def, filepath, TeraDataAutoUpdateServer + "protocol/" + def);
+async function autoUpdateDef(def, filepath, expectedHash = null) {
+  return await autoUpdateFile(def, filepath, TeraDataAutoUpdateServer + "protocol/" + def, undefined, expectedHash);
 }
 
 async function autoUpdateDefs(requiredDefs, updatelog, updatelimit) {
@@ -153,19 +153,20 @@ async function autoUpdateDefs(requiredDefs, updatelog, updatelimit) {
     console.log("[update] Updating defs");
 
   const defs = await request({url: TeraDataAutoUpdateServer + 'defs.json', json: true});
-  for(let def of defs) {
+  for(let def in defs) {
     let filepath = path.join(__dirname, '..', '..', 'node_modules', 'tera-data', 'protocol', def);
-    if(!fs.existsSync(filepath)) {
+    let expectedHash = defs[def].toUpperCase();
+    if(!fs.existsSync(filepath) || hash(fs.readFileSync(filepath)) !== expectedHash) {
       if(updatelog)
         console.log("[update] - " + def);
 
-      let promise = autoUpdateDef(def, filepath);
+      let promise = autoUpdateDef(def, filepath, expectedHash);
       promises.push(updatelimit ? (await promise) : promise);
     }
   }
 
   // TODO: check if all requiredDefs are in def list
-  // TODO: def file hashes, delete outdated defs, ...
+  // TODO: delete outdated defs, ...
 
   return promises;
 }
