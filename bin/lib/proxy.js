@@ -179,6 +179,8 @@ function onConnectionError(err) {
   }
 }
 
+let activeConnections = new Set;
+
 function runServ(target, socket) {
   const { Connection, RealClient } = require("tera-proxy-game");
 
@@ -241,9 +243,14 @@ function runServ(target, socket) {
   srvConn.on("connect", () => {
     remote = socket.remoteAddress + ":" + socket.remotePort;
     console.log("[connection] routing %s to %s:%d", remote, srvConn.remoteAddress, srvConn.remotePort);
-  })
+    
+    activeConnections.add(connection);
+  });
 
-  srvConn.on("error", onConnectionError);
+  srvConn.on("error", (err) => {
+    onConnectionError(err);
+    activeConnections.delete(connection);
+  });
 
   srvConn.on("close", () => {
     console.log("[connection] %s disconnected", remote);
@@ -254,7 +261,9 @@ function runServ(target, socket) {
         delete require.cache[key];
       }
     }
-  })
+    
+    activeConnections.delete(connection);
+  });
 }
 
 const autoUpdate = require("./update");
@@ -337,6 +346,9 @@ const isWindows = process.platform === "win32";
 
 function cleanExit() {
   console.log("terminating...");
+  
+  activeConnections.forEach((connection) => { connection.close(); });
+  activeConnections.clear();
 
   if(!isConsole) {
     try {
