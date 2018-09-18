@@ -26,18 +26,12 @@ if (!currentRegion) {
   let migratedFile = null;
   switch(REGION) {
     case "EU": {
-      if ((currentRegion.customServers["30"] && currentRegion.customServers["30"].name == "(EN) - Sikander (Proxy)") ||
-          (currentRegion.customServers["31"] && currentRegion.customServers["31"].name == "(DE) - Saleron (Proxy)") ||
-          (currentRegion.customServers["32"] && currentRegion.customServers["32"].name == "(FR) - Amarun (Proxy)") ||
-          (currentRegion.customServers["33"] && currentRegion.customServers["33"].name == "(INT) - Manahan (Proxy)") ||
-          !currentRegion.customServers["34"] ||
-          !currentRegion.customServers["35"])
+      if (currentRegion.customServers["30"] || currentRegion.customServers["31"] || currentRegion.customServers["32"] || currentRegion.customServers["33"] || currentRegion.customServers["34"] || currentRegion.customServers["35"])
         migratedFile = "res/servers-eu.json";
       break;
     }
     case "TH": {
-      if ((currentRegion.customServers["1"] && currentRegion.customServers["1"].name == "Karas (Proxy)") ||
-          (currentRegion.customServers["2"] && currentRegion.customServers["2"].name == "Zuras (Proxy)"))
+      if (currentRegion.customServers["1"] || currentRegion.customServers["2"])
         migratedFile = "res/servers-th.json";
       break;
     }
@@ -243,7 +237,7 @@ function runServ(target, socket) {
   srvConn.on("connect", () => {
     remote = socket.remoteAddress + ":" + socket.remotePort;
     console.log("[connection] routing %s to %s:%d", remote, srvConn.remoteAddress, srvConn.remotePort);
-    
+
     activeConnections.add(connection);
   });
 
@@ -261,7 +255,7 @@ function runServ(target, socket) {
         delete require.cache[key];
       }
     }
-    
+
     activeConnections.delete(connection);
   });
 }
@@ -346,7 +340,7 @@ const isWindows = process.platform === "win32";
 
 function cleanExit() {
   console.log("terminating...");
-  
+
   activeConnections.forEach((connection) => { connection.close(); });
   activeConnections.clear();
 

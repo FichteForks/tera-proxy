@@ -2,11 +2,11 @@
   "files": {
     "bin/lib/hosts.js": "e554c3d2593be08afc60f3db74ca96644c7b267e12d546cfbf5ef61c965da99a",
     "bin/lib/netstat.js": "2b7b5c825c82833403684545fc9b9cfc57cb878fa782bbde860805984119b6cb",
-    "bin/lib/proxy.js": "a6c34d97ced34fbffc340a39e42e59d67e9d07d81ed3d60f792d5f1fa8adc83d",
+    "bin/lib/proxy.js": "073bd96518ed5726ee45e05bb528b18f655a637f308ec1fb4cec2c4dfe97c9da",
     "bin/lib/regions.js": "60cc61f82f9dddceab480b287d372b19a3482dbff95ef6c7dd6db9408ac9be83",
     "bin/lib/update.js": "a3e91976606c794c52398a352be9d331a7de9cae8f4a40340a07c0dedc12d4a7",
     "bin/lib/update-self.js": "d6a14295cbf41152ee59d18836319e11cf642961db4ffc94d8113fbe14d46a69",
-    "bin/lib/res/servers-eu.json": {"overwrite": false, "hash": "eb85173ec6a059f9b83974d036ec40d7769986d6e9c2de6125dc37946e656a61"},
+    "bin/lib/res/servers-eu.json": {"overwrite": false, "hash": "fe961a1205ad1e0cee690e447692b00f82cbda0425878a9a047a5e74297a1374"},
     "bin/lib/res/servers-eu-test.json": {"overwrite": false, "hash": "3d246de5b38e3d5fb7d7ad64c1055725e4d65dbf66434c3a4aac5fcc4325991b"},
     "bin/lib/res/servers-jp.json": {"overwrite": false, "hash": "4b674cbc155f9928d8d887d0db4b55d730ba68139eae0cb6a48bffbe0dc04f35"},
     "bin/lib/res/servers-jp-classic.json": {"overwrite": false, "hash": "cdf33e024f2ce721bd273e9f9d402fe711678e19663891392d9ce8882cf756c8"},    

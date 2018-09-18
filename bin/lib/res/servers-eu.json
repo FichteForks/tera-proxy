@@ -22,17 +22,5 @@
 		"ip": "127.0.0.21",
 		"port": 9253,
 		"keepOriginal": true
-	},
-	"34": {
-		"name": "(EN) - Bahaar (Proxy)",
-		"ip": "127.0.0.21",
-		"port": 9254,
-		"keepOriginal": true
-	},
-	"35": {
-		"name": "(DE) - Dagon (Proxy)",
-		"ip": "127.0.0.21",
-		"port": 9255,
-		"keepOriginal": true
 	}
 }
