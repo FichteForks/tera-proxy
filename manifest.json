@@ -12,7 +12,7 @@
     "bin/lib/res/servers-jp-classic.json": {"overwrite": false, "hash": "cdf33e024f2ce721bd273e9f9d402fe711678e19663891392d9ce8882cf756c8"},    
     "bin/lib/res/servers-kr.json": {"overwrite": false, "hash": "d7c276eb311ac4121473da0856dfbf111bf713099755636acd3b4ce5431ad9d9"},
     "bin/lib/res/servers-kr-test.json": {"overwrite": false, "hash": "46bdf430c8b7b439b66db118265b469c5b0090c1bfeba11f09dc436da36b644b"},
-    "bin/lib/res/servers-na.json": {"overwrite": false, "hash": "998df69f41da6a0ea877909ba688831c501b08821fc3ee31ac7c9b038f1f9b2a"},
+    "bin/lib/res/servers-na.json": {"overwrite": false, "hash": "5af2f064068ba44b890786a44ad1b7d98d49534855ac8782cfead23b06f1c0bd"},
     "bin/lib/res/servers-ru.json": {"overwrite": false, "hash": "284ce052b52422ed8e43901fcb94d98ef055d352d23fa5b9dadda87d0bd4d8c9"},
     "bin/lib/res/servers-ru-test.json": {"overwrite": false, "hash": "89cbd37ed8b7efd610bf88aef248946866f269b2dcbfd238cdafeaea0dde8923"},
     "bin/lib/res/servers-tw.json": {"overwrite": false, "hash": "4189efb922b24cb82919209546ce3119ff59ee3c5cac815f17399f3b786a7631"},

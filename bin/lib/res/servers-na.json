@@ -1,32 +1,14 @@
 {
-	"4004": {
-		"name": "Tempest Reach (Proxy)",
+	"4105": {
+		"name": "Velika (Proxy)",
 		"ip": "127.0.0.20",
 		"port": 9250,
 		"keepOriginal": true
 	},
-	"4009": {
-		"name": "Celestial Hills (Proxy)",
+	"4107": {
+		"name": "Kaiator (Proxy)",
 		"ip": "127.0.0.20",
 		"port": 9251,
-		"keepOriginal": true
-	},
-	"4012": {
-		"name": "Mount Tyrannas (Proxy)",
-		"ip": "127.0.0.20",
-		"port": 9252,
-		"keepOriginal": true
-	},
-	"4024": {
-		"name": "Ascension Valley (Proxy)",
-		"ip": "127.0.0.20",
-		"port": 9253,
-		"keepOriginal": true
-	},
-	"4032": {
-		"name": "Fey Forest (Proxy)",
-		"ip": "127.0.0.20",
-		"port": 9254,
 		"keepOriginal": true
 	}
 }

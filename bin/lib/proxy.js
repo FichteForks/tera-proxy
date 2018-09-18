@@ -30,6 +30,11 @@ if (!currentRegion) {
         migratedFile = "res/servers-eu.json";
       break;
     }
+    case "NA": {
+      if (currentRegion.customServers["4004"] || currentRegion.customServers["4009"] || currentRegion.customServers["4012"] || currentRegion.customServers["4024"] || currentRegion.customServers["4032"])
+        migratedFile = "res/servers-na.json";
+      break;
+    }
     case "TH": {
       if (currentRegion.customServers["1"] || currentRegion.customServers["2"])
         migratedFile = "res/servers-th.json";
