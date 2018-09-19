@@ -289,6 +289,7 @@ function startProxy() {
         console.error(" - your internet connection (unstable/broken connection, improper configuration, geo-IP ban from the game region you're trying to play on, ...)");
         console.error(" - game servers being down for maintenance");
         console.error("Please test if you can regularly play the game (without proxy). If you can't, it's not a proxy issue, but one of the above.");
+        console.error("You can also try restarting/resetting your router and your computer.");
         process.exit(1);
       }
 
