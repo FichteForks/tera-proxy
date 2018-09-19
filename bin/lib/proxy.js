@@ -281,7 +281,17 @@ function startProxy() {
   if(!isConsole) {
     dns.setServers(DNS_SERVERS || ["8.8.8.8", "8.8.4.4"]);
 
+    // For some reason, node's http request timeout doesn't always work, so add a workaround here.
+    let slsTimeout = setTimeout(() => {
+      console.error("ERROR: Timeout while trying to load the server list.");
+      console.error("This is NOT a proxy issue. Your connection to the official servers is not working properly!");
+      console.error("Try restarting/resetting your router and your computer. That might solve the issue.");
+      process.exit(1);
+    }, 5000);
+
     proxy.fetch((err, gameServers) => {
+      clearTimeout(slsTimeout);
+
       if (err) {
         console.error(`ERROR: Unable to load the server list: ${err}`);
         console.error("This is almost always caused by");
