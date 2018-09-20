@@ -290,8 +290,6 @@ function startProxy() {
     }, 5000);
 
     proxy.fetch((err, gameServers) => {
-      clearTimeout(slsTimeout);
-
       if (err) {
         console.error(`ERROR: Unable to load the server list: ${err}`);
         console.error("This is almost always caused by");
@@ -314,7 +312,9 @@ function startProxy() {
         const server = net.createServer(createServ.bind(null, target));
         servers.set(id, server);
       }
+
       proxy.listen(listenHostname, listenHandler);
+      clearTimeout(slsTimeout);
     });
   } else {
     for (let i = 0, arr = Object.keys(customServers), len = arr.length; i < len; ++i) {
