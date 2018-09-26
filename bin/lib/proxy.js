@@ -1,9 +1,9 @@
-const DiscordURL = "https://discord.gg/EbR2Eud";
+const DiscordURL = "https://tinyurl.com/caaliproxy";
 
 console.log("---------------------------------------------------------------------")
 console.log("Discord has suspended my account and deleted my server at the request")
-console.log("       of an unnamed third party. Please join the new one at")
-console.log("               >>> https://discord.gg/EbR2Eud <<<")
+console.log("     of an unnamed third party. Please join the slack server at")
+console.log("             >>> https://tinyurl.com/caaliproxy <<<")
 console.log("---------------------------------------------------------------------")
 
 const {region: REGION, updatelog: UPDATE_LOG, dnsservers: DNS_SERVERS} = (() => {
@@ -325,8 +325,8 @@ function startProxy() {
 
       console.log("---------------------------------------------------------------------")
       console.log("Discord has suspended my account and deleted my server at the request")
-      console.log("       of an unnamed third party. Please join the new one at")
-      console.log("               >>> https://discord.gg/EbR2Eud <<<")
+      console.log("     of an unnamed third party. Please join the slack server at")
+      console.log("             >>> https://tinyurl.com/caaliproxy <<<")
       console.log("---------------------------------------------------------------------")
     });
   } else {
