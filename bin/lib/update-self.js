@@ -7,7 +7,7 @@ const crypto = require('crypto');
 const fs = require("fs");
 const path = require("path");
 
-const TeraProxyAutoUpdateServer = "https://raw.githubusercontent.com/hackerman-caali/tera-proxy/master/";
+const TeraProxyAutoUpdateServers = ["https://raw.githubusercontent.com/hackerman-caali/tera-proxy/master/", "http://teralogs.feedia.co/proxy/", "https://teralogs.lima-city.de/proxy/"];
 const DiscordURL = "https://discord.gg/EbR2Eud";
 
 function forcedirSync(dir) {
@@ -37,7 +37,7 @@ async function autoUpdateFile(file, filepath, url) {
   }
 }
 
-async function autoUpdateSelf(updatelimit = true) {
+async function autoUpdateSelf(updatelimit = true, serverIndex = 0) {
   if(!request) {
     console.error("ERROR: It looks like you've downloaded my proxy directly from GitHub without properly installing required dependencies!");
     console.error("ERROR: Please join %s and download the prepackaged release version from the #proxy channel!", DiscordURL);
@@ -45,7 +45,7 @@ async function autoUpdateSelf(updatelimit = true) {
   }
 
   try {
-    const manifest = await request({url: TeraProxyAutoUpdateServer + 'manifest.json', json: true});
+    const manifest = await request({url: TeraProxyAutoUpdateServers[serverIndex] + 'manifest.json', json: true});
     if(!manifest["files"])
       throw "Invalid manifest!";
 
@@ -62,7 +62,7 @@ async function autoUpdateSelf(updatelimit = true) {
         }
       }
       if(needsUpdate) {
-        let promise = autoUpdateFile(file, filepath, TeraProxyAutoUpdateServer + file);
+        let promise = autoUpdateFile(file, filepath, TeraProxyAutoUpdateServers[serverIndex] + file);
         promises.push(updatelimit ? (await promise) : promise);
       }
     }
@@ -79,15 +79,19 @@ async function autoUpdateSelf(updatelimit = true) {
       if(failedFiles.length > 0)
         throw "Failed to update the following proxy files:\n - " + failedFiles.join('\n - ');
 
-      console.log("[update] Proxy updated!");
+      console.log(`[update] Proxy updated (Update server ${serverIndex})!`);
       return true;
     } else {
-      console.log("[update] Proxy is up to date!");
+      console.log(`[update] Proxy is up to date (Update server ${serverIndex})!`);
       return false;
     }
   } catch(e) {
-    console.error("ERROR: Unable to auto-update the proxy!: %s\nPlease join %s and check the #info and #help channels for further instructions.", e, DiscordURL);
-    return Promise.reject(e);
+    if(serverIndex + 1 < TeraProxyAutoUpdateServers.length) {
+      return autoUpdateSelf(updatelimit, serverIndex + 1);
+    } else {
+      console.error("ERROR: Unable to auto-update the proxy!: %s\nPlease join %s and check the #info and #help channels for further instructions.", e, DiscordURL);
+      return Promise.reject(e);
+    }
   }
 }
 
