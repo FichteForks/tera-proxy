@@ -1,6 +1,6 @@
 ### Fork of Meishuu's/Pinkie Pie's tera-proxy with built-in support for automatic updates
 * It will auto-update your opcode mappings, packet definitions, and compatible installed modules. You no longer need do manually update _anything_!
-* Feel free to visit my Discord server at https://discord.gg/maqBmJV
+* Feel free to visit my Discord server at https://discord.gg/EbR2Eud
 
 ### Installation instructions
 * Download and run the setup from the #proxy channel in the Discord server linked above. A manual installation is possible, but not recommended!
@@ -9,7 +9,7 @@
 * Run `TeraProxy.bat` *as Administrator*, then start the game
 
 ### Popular and fully compatible modules
-Almost all tera-proxy modules are compatible with my proxy. For an always up-to-date list, check out the #proxy-mods channel of [my discord](https://discord.gg/maqBmJV)!
+Almost all tera-proxy modules are compatible with my proxy. For an always up-to-date list, check out the #proxy-mods channel of [my discord](https://discord.gg/EbR2Eud)!
 * [Skill Prediction (SaltyMonkey's fork, included with the proxy by default)](https://github.com/SaltyMonkey/skill-prediction)
 * [FPS Utils (included with the proxy by default)](https://github.com/codeagon/fps-utils)
 * [Xigncode Bypass (optionally installed by default)](https://github.com/hackerman-caali/xigncode-bypass)

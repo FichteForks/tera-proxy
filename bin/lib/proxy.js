@@ -1,4 +1,11 @@
-const DiscordURL = "https://discord.gg/maqBmJV";
+const DiscordURL = "https://discord.gg/EbR2Eud";
+
+console.log("---------------------------------------------------------------------")
+console.log("Discord has suspended my account and deleted my server at the request")
+console.log("       of an unnamed third party. Please join the new one at")
+console.log("               >>> https://discord.gg/EbR2Eud <<<")
+console.log("---------------------------------------------------------------------")
+
 const {region: REGION, updatelog: UPDATE_LOG, dnsservers: DNS_SERVERS} = (() => {
     try {
         return require("../config.json");
@@ -315,6 +322,12 @@ function startProxy() {
 
       proxy.listen(listenHostname, listenHandler);
       clearTimeout(slsTimeout);
+
+      console.log("---------------------------------------------------------------------")
+      console.log("Discord has suspended my account and deleted my server at the request")
+      console.log("       of an unnamed third party. Please join the new one at")
+      console.log("               >>> https://discord.gg/EbR2Eud <<<")
+      console.log("---------------------------------------------------------------------")
     });
   } else {
     for (let i = 0, arr = Object.keys(customServers), len = arr.length; i < len; ++i) {
