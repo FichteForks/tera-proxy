@@ -89,4 +89,4 @@ Almost all tera-proxy modules are compatible with my proxy. For an always up-to-
 * Whenever you push an update, remember to update `manifest.json` as well!
 * Keep in mind that everytime the user logs in, all files with checksums mismatching those in your manifest.json will be overwritten. This will overwrite any changes the user has made to them!
 * Make sure to disable git auto-line ending conversion (`git config --global core.autocrlf false`) before pushing your updated files. This will ensure that your file contents won't be modified, so that the SHA256 hashes you generated for `manifest.json` won't become invalid!
-* If you have any further questions on how to make your module compatible, feel free to ask me via PM or in my discord!
+* If you have any further questions on how to make your module compatible, feel free to ask me via PM or in my Slack server!
