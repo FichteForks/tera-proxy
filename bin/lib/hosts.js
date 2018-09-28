@@ -11,6 +11,7 @@ if (process.platform === 'win32') {
 } else {
 	HOSTS = '/etc/hosts';
 }
+exports.HOSTS = HOSTS;
 
 exports.get = function () {
 	var lines = [];
@@ -85,7 +86,7 @@ exports.writeFile = function (lines) {
 	var mode;
 	try {
 		mode = fs.statSync(HOSTS).mode;
-		if (!(mode & 128)) { // 0200 (owner, write)
+		if (!(mode & 0o200)) { // 0200 (owner, write)
 			// FIXME generate fake EACCES
 			var err = new Error('EACCES: Permission denied');
 			err.code = 'EACCES';
@@ -94,7 +95,7 @@ exports.writeFile = function (lines) {
 		}
 	} catch (e) {
 		if (e.code === 'ENOENT') {
-			mode = 33206; // 0100666 (regular file, rw-rw-rw-)
+			mode = 0o100666; // 0100666 (regular file, rw-rw-rw-)
 		} else {
 			throw e;
 		}
@@ -103,3 +104,13 @@ exports.writeFile = function (lines) {
 	// Write file
 	fs.writeFileSync(HOSTS, data, {mode: mode});
 };
+
+exports.cannotWrite = function() {
+	try {
+		let fd = fs.openSync(HOSTS, 'w+'); // don't set mode (0o100666) to respect umask
+		fs.close(fd);
+		return false;
+	} catch (e) {
+		return e;
+	}
+}
