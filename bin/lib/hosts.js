@@ -2,10 +2,15 @@
 var fs = require('fs');
 var path = require('path');
 
-var HOSTS = path.join(
-	process.env.SystemRoot || path.join(process.env.SystemDrive || 'C:', 'Windows'),
-	'/System32/drivers/etc/hosts'
-);
+var HOSTS;
+if (process.platform === 'win32') {
+	HOSTS = path.join(
+		process.env.SystemRoot || path.join(process.env.SystemDrive || 'C:', 'Windows'),
+		'/System32/drivers/etc/hosts'
+	);
+} else {
+	HOSTS = '/etc/hosts';
+}
 
 exports.get = function () {
 	var lines = [];
